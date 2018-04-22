@@ -6,7 +6,7 @@ from CSPBacktrack import CSPBacktrack
 from Constraint import Constraint
 from Variable import Variable
 from Vertex import Vertex
-
+import cProfile
 
 def create_graph_from_square_matrix(size):
     num_vertex = size * size
@@ -77,6 +77,9 @@ def constraint_queens(vertex, neighbours, graph):
                     math.fabs(vertex.variable.value - neighbour_vertex.variable.value)))
                 ]) == 0
 
+pr = cProfile.Profile()
+pr.enable()
+
 
 graph = create_graph_for_queens(10)
 # graph = create_graph_from_square_matrix(4)
@@ -95,3 +98,6 @@ csp.solve(0, start_time)
 print(csp.counter)
 print(csp.backtrack_count)
 print((date.now() - start_time).microseconds)
+
+pr.disable()
+pr.print_stats()
